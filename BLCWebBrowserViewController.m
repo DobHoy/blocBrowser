@@ -124,7 +124,33 @@
     }
 }
 
+#pragma mark - didTryToPanWithOffset
 
+-(void) floatingToolbar:(BLCAwesomeFloatingToolbar *)toolbar didTryToPanWithOffset:(CGPoint)offset
+{
+    CGPoint startingPoint = toolbar.frame.origin;
+    CGPoint newPoint = CGPointMake(startingPoint.x + offset.x, startingPoint.y+offset.y);
+    
+    CGRect potentialNewFrame = CGRectMake(newPoint.x, newPoint.y, CGRectGetWidth(toolbar.frame), CGRectGetHeight(toolbar.frame));
+    
+    if(CGRectContainsRect(self.view.bounds, potentialNewFrame)){
+        toolbar.frame = potentialNewFrame;
+    }
+}
+
+
+#pragma mark - didTryToPanWithOffset
+
+-(void) floatingToolbar:(BLCAwesomeFloatingToolbar *)toolbar didPinchToolbarWithScale:(CGFloat)scale
+{
+    
+    //need help, not sure what to do here..
+    
+//    CGFloat scale = [recognizer scale];
+//    [recognizer.view setTransform:CGAffineTransformScale(recognizer.view.transform, scale, scale)];
+//    [recognizer setScale:1.0];
+
+}
 
 //
 //-(void) webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
@@ -155,7 +181,7 @@
     self.webview.frame = CGRectMake(0,CGRectGetMaxY(self.textField.frame), width, browserHeight);
     
     
-    self.awesomeToolbar.frame = CGRectMake(0, 100, 100, 100);
+    self.awesomeToolbar.frame = CGRectMake(0, 50, 150, 150);
     
     
 }
@@ -166,10 +192,8 @@
     [textField resignFirstResponder];
     
     NSString *URLString = textField.text;
-    
-    
   
-    if ([URLString componentsSeparatedByString:@" "].count > 1)
+    if ( [URLString componentsSeparatedByString:@" "].count > 1 )
     {
         NSString* escapedUrlString =
         [URLString stringByAddingPercentEscapesUsingEncoding: NSASCIIStringEncoding];
@@ -184,9 +208,7 @@
     
     if(URL){
         NSURLRequest *request = [NSURLRequest requestWithURL:URL];
-     
         [self.webview loadRequest:request];
-        
     }
     
     return NO;
