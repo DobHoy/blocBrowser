@@ -20,6 +20,7 @@
 @property (nonatomic, strong) UITapGestureRecognizer *tapGesture;
 @property (nonatomic, strong) UIPanGestureRecognizer *panGesture;
 @property (nonatomic, strong) UIPinchGestureRecognizer *pinchGesture;
+@property (nonatomic, strong) UILongPressGestureRecognizer *longGesture;
 
 @end
 
@@ -66,8 +67,12 @@
         self.tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapFired:)];
         self.panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panFired:)];
         self.pinchGesture = [[UIPinchGestureRecognizer alloc]initWithTarget:self action:@selector(pinchFired:)];
+        self.longGesture = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(longFired:)];
         
+        self.longGesture.minimumPressDuration = 1.0f;
+        self.longGesture.allowableMovement = 100.0f;
         
+        [self addGestureRecognizer:self.longGesture];
         [self addGestureRecognizer:self.tapGesture];
         [self addGestureRecognizer:self.panGesture];
         [self addGestureRecognizer:self.pinchGesture];
@@ -96,7 +101,7 @@
     
 }
 
--(void) pinchFired: (UIPinchGestureRecognizer *) recognizer {
+-(void) pinchFired:(UIPinchGestureRecognizer *) recognizer {
     
     if(recognizer.state == UIGestureRecognizerStateChanged)
     {
@@ -104,9 +109,21 @@
         if ([self.delegate respondsToSelector:@selector(floatingToolbar:didPinchToolbarWithScale:)]) {
             [self.delegate floatingToolbar:self didPinchToolbarWithScale:scale];
         }
+    }
     
-        
-        
+}
+
+-(void) longFired:(UILongPressGestureRecognizer *) recognizer {
+    
+    
+    
+    if (recognizer.state == UIGestureRecognizerStateBegan)
+    {
+        if([self.delegate respondsToSelector:@selector(floatingToolbar:rotateColors:)]){
+//            [self.delegate floatingToolbar:self rotateColors];
+            NSLog(@"rotation of colors to be implemented!");
+            
+        }
     }
     
 }
@@ -153,13 +170,11 @@
             labelX = 0;
         } else {
             labelX = CGRectGetWidth(self.bounds)/2;
-            
+        
         }
         
         thisLabel.frame = CGRectMake(labelX, labelY, labelWidth, labelHeight);
-
     }
-    
     
 }
 
