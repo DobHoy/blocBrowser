@@ -71,6 +71,7 @@
         
         self.longGesture.minimumPressDuration = 1.0f;
         self.longGesture.allowableMovement = 100.0f;
+        self.pinchGesture.scale = 1;
         
         [self addGestureRecognizer:self.longGesture];
         [self addGestureRecognizer:self.tapGesture];
@@ -109,6 +110,7 @@
         if ([self.delegate respondsToSelector:@selector(floatingToolbar:didPinchToolbarWithScale:)]) {
             [self.delegate floatingToolbar:self didPinchToolbarWithScale:scale];
         }
+        recognizer.scale = 1.0;
     }
     
 }

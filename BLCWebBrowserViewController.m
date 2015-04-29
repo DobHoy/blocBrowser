@@ -146,21 +146,13 @@
     
     //need help, not sure what to do here..
     
-//    CGFloat scale = [recognizer scale];
-//    [recognizer.view setTransform:CGAffineTransformScale(recognizer.view.transform, scale, scale)];
-//    [recognizer setScale:1.0];
+
+    [toolbar setTransform:CGAffineTransformScale(toolbar.transform, scale, scale)];
+
 
 }
 
-//
-//-(void) webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
-//    [self updateButtonsAndTitle];
-//}
-//
-//-(void) webView:(WKWebView *)webView didFailNavigation:(WKNavigation *)navigation withError:(NSError *)error {
-//    
-//    
-//}
+
 
 
 -(void) viewWillLayoutSubviews{
