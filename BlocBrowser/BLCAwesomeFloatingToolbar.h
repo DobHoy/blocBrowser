@@ -17,7 +17,7 @@
 -(void) floatingToolbar:(BLCAwesomeFloatingToolbar *)toolbar didSelectButtonWithTitle:(NSString *)title;
 -(void) floatingToolbar:(BLCAwesomeFloatingToolbar *)toolbar didTryToPanWithOffset:(CGPoint)offset;
 -(void) floatingToolbar:(BLCAwesomeFloatingToolbar *)toolbar didPinchToolbarWithScale:(CGFloat)scale;
-//-(void) floatingToolbar:(BLCAwesomeFloatingToolbar *)toolbar rotateColors;
+-(void) floatingToolbarRotateColors:(BLCAwesomeFloatingToolbar *)toolbar;
 
 @end
 

@@ -148,8 +148,7 @@
     
 
     [toolbar setTransform:CGAffineTransformScale(toolbar.transform, scale, scale)];
-
-
+ 
 }
 
 
@@ -166,15 +165,13 @@
 
     CGFloat browserHeight = CGRectGetHeight(self.view.bounds) - itemHeight;
     
-  
-    
     self.textField.frame = CGRectMake(0,0,width, itemHeight);
     
     self.webview.frame = CGRectMake(0,CGRectGetMaxY(self.textField.frame), width, browserHeight);
     
     
     self.awesomeToolbar.frame = CGRectMake(0, 50, 150, 150);
-    
+    NSLog(@"viewWillLayoutSubviews called");
     
 }
 

@@ -150,33 +150,36 @@
 
 -(void) layoutSubviews{
     
+    static dispatch_once_t onceToken;
+    dispatch_once( &onceToken, ^{
     
-    for(UILabel *thisLabel in self.labels)
-    {
-        NSUInteger currentLabelIndex = [self.labels indexOfObject:thisLabel];
+     NSLog(@"layoutSubviews called");
+        for(UILabel *thisLabel in self.labels)
+        {
+            NSUInteger currentLabelIndex = [self.labels indexOfObject:thisLabel];
         
-        CGFloat labelHeight = CGRectGetHeight(self.bounds) / 2;
-        CGFloat labelWidth = CGRectGetWidth(self.bounds) / 2;
-        CGFloat labelX = 0;
-        CGFloat labelY = 0;
+            CGFloat labelHeight = CGRectGetHeight(self.bounds) / 2;
+            CGFloat labelWidth = CGRectGetWidth(self.bounds) / 2;
+            CGFloat labelX = 0;
+            CGFloat labelY = 0;
         
-        if (currentLabelIndex < 2) {
-            labelY = 0;
+            if (currentLabelIndex < 2) {
+                labelY = 0;
             
-        } else {
-            labelY = CGRectGetHeight(self.bounds) / 2;
+            } else {
+                labelY = CGRectGetHeight(self.bounds) / 2;
             
+            }
+        
+            if(currentLabelIndex % 2 == 0){
+                labelX = 0;
+            } else {
+                labelX = CGRectGetWidth(self.bounds)/2;
+            }
+        
+            thisLabel.frame = CGRectMake(labelX, labelY, labelWidth, labelHeight);
         }
-        
-        if(currentLabelIndex % 2 == 0){
-            labelX = 0;
-        } else {
-            labelX = CGRectGetWidth(self.bounds)/2;
-        
-        }
-        
-        thisLabel.frame = CGRectMake(labelX, labelY, labelWidth, labelHeight);
-    }
+    });
     
 }
 
