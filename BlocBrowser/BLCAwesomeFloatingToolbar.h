@@ -27,6 +27,8 @@
 
 - (void) setEnabled: (BOOL) enabled forButtonWithTitle:(NSString *)title;
 
+- (void) rotateColors;
+
 @property (nonatomic, weak) id<BLCAwesomeFloatingToolBarDelgate> delegate;
 
 

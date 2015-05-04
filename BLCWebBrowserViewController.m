@@ -147,11 +147,18 @@
     //need help, not sure what to do here..
     
 
-    [toolbar setTransform:CGAffineTransformScale(toolbar.transform, scale, scale)];
- 
+//    [toolbar setTransform:CGAffineTransformScale(toolbar.transform, scale, scale)];
+
+    CGAffineTransform transform = CGAffineTransformMakeScale( scale, scale );
+    toolbar.transform = transform;
 }
 
-
+#pragma mark - floatingToolbarRotateColors
+- (void) floatingToolbarRotateColors:(BLCAwesomeFloatingToolbar *)toolbar {
+    
+    
+    [toolbar rotateColors];
+}
 
 
 -(void) viewWillLayoutSubviews{

@@ -106,24 +106,30 @@
     
     if(recognizer.state == UIGestureRecognizerStateChanged)
     {
+        
+        CGPoint pinch = [recognizer locationInView:self];
         CGFloat scale = [recognizer scale];
-        if ([self.delegate respondsToSelector:@selector(floatingToolbar:didPinchToolbarWithScale:)]) {
-            [self.delegate floatingToolbar:self didPinchToolbarWithScale:scale];
+        UIView *tappedView = [self hitTest:pinch withEvent:nil];
+        
+        if ([self.subviews containsObject:tappedView] || [self isEqual:tappedView])
+        {
+            
+            if ([self.delegate respondsToSelector:@selector(floatingToolbar:didPinchToolbarWithScale:)]) {
+                [self.delegate floatingToolbar:self didPinchToolbarWithScale:scale];
+            }
         }
-        recognizer.scale = 1.0;
     }
     
 }
-
+//-(void) floatingToolbarRotateColors:(BLCAwesomeFloatingToolbar *)toolbar;
 -(void) longFired:(UILongPressGestureRecognizer *) recognizer {
-    
     
     
     if (recognizer.state == UIGestureRecognizerStateBegan)
     {
-        if([self.delegate respondsToSelector:@selector(floatingToolbar:rotateColors:)]){
-//            [self.delegate floatingToolbar:self rotateColors];
-            NSLog(@"rotation of colors to be implemented!");
+        if([self.delegate respondsToSelector:@selector(floatingToolbarRotateColors:)]){
+            [self.delegate floatingToolbarRotateColors:self];
+            
             
         }
     }
@@ -193,6 +199,25 @@
 }
 
 
+-(void) rotateColors {
+
+    NSMutableArray *colorsTemp = [self.colors mutableCopy];
+    
+    int i = 0;
+    for (; i < ( [colorsTemp count] - 1 ); i++) {
+    
+        UIColor *nextColor = [colorsTemp objectAtIndex:i];
+        colorsTemp[i] = colorsTemp[i+1];
+        colorsTemp[i+1] = nextColor;
+        ( (UILabel*)self.labels[i] ).backgroundColor = colorsTemp[i];
+        
+        
+    }
+    ( (UILabel*)self.labels[i] ).backgroundColor = colorsTemp[i];
+    
+    self.colors = colorsTemp;
+   
+}
 
 
 -(void) setEnabled:(BOOL)enabled forButtonWithTitle:(NSString *)title{
